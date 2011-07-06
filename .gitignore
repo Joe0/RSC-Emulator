@@ -1,0 +1,17 @@
+.*
+*~
+*.iml
+*.ipr
+*.iws
+!.gitignore
+!.gitmodules
+!.gitkeep
+!.gitattributes
+!.mailmap
+build
+out
+classes
+bin
+lib
+doc
+*.jar
