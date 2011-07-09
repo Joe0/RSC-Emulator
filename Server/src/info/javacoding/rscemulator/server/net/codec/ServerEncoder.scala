@@ -1,10 +1,8 @@
 package info.javacoding.rscemulator.server.net.codec
-import org.jboss.netty.handler.codec.oneone.OneToOneEncoder
-import org.jboss.netty.channel.Channel
-import org.jboss.netty.channel.ChannelHandlerContext
-import org.jboss.netty.buffer.ChannelBuffer
 import info.javacoding.rscemulator.server.net.Packet
-import org.jboss.netty.buffer.ChannelBuffers
+import org.jboss.netty.buffer.{ ChannelBuffer, ChannelBuffers }
+import org.jboss.netty.channel.{ Channel, ChannelHandlerContext }
+import org.jboss.netty.handler.codec.oneone.OneToOneEncoder
 
 /**
  * A class that encodes packets so the client can then decode them.

@@ -1,16 +1,12 @@
 package info.javacoding.rscemulator.server.net
 
+import info.javacoding.rscemulator.server.net.codec.{ ServerDecoder, ServerEncoder }
+import java.net.InetSocketAddress
+import java.util.concurrent.Executors
 import org.jboss.netty.bootstrap.ServerBootstrap
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory
-import java.util.concurrent.Executors
-import org.jboss.netty.channel.ChannelPipelineFactory
-import org.jboss.netty.channel.ChannelPipeline
-import org.jboss.netty.channel.Channels
-import info.javacoding.rscemulator.server.net.codec.ServerEncoder
-import info.javacoding.rscemulator.server.net.codec.ServerDecoder
-import java.net.InetSocketAddress
-import org.jboss.netty.channel.ChannelHandlerContext
-import org.jboss.netty.channel.MessageEvent
+import org.jboss.netty.channel.{ ChannelPipeline, ChannelPipelineFactory, Channels }
+import info.javacoding.rscemulator.server.event.EventDispatcher
 
 /**
  * An object whose sole purpose is to start the server.
@@ -19,6 +15,7 @@ import org.jboss.netty.channel.MessageEvent
  */
 object Bootstrap {
   def init {
+    EventDispatcher.start
     val bootstrap = new ServerBootstrap(new NioServerSocketChannelFactory(Executors.newCachedThreadPool,
       Executors.newCachedThreadPool))
     bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
