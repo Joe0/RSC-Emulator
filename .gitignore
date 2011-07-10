@@ -1,5 +1,8 @@
 .*
 *~
+*.iml
+*.ipr
+*.iws
 !.gitignore
 *.jar
 *.class
@@ -11,4 +14,8 @@ lib_managed/
 scala-2.7.7/
 scala_2.7.7/
 target/
+bin/
+build/
+out/
+classes/
 
