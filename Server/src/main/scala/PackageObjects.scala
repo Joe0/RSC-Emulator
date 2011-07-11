@@ -30,6 +30,16 @@ package rsce {
 		}
 	}
 
+	package object persistence {
+		val Logger = com.joepritzel.rsce.log.Logger
+	}
+
+	package persistence {
+		package object entity {
+			val Logger = com.joepritzel.rsce.log.Logger
+		}
+	}
+
 	package object util {
 		val Logger = com.joepritzel.rsce.log.Logger
 	}

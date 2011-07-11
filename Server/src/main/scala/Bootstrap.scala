@@ -2,6 +2,7 @@ package com.joepritzel.rsce
 
 import com.joepritzel.rsce.event.EventDispatcher
 import com.joepritzel.rsce.net.codec.{ServerDecoder, ServerEncoder}
+import com.joepritzel.rsce.persistence.Persistence
 import java.net.InetSocketAddress
 import java.util.concurrent.Executors
 import net.ServerUpstreamHandler
@@ -16,7 +17,13 @@ import org.jboss.netty.channel.{ChannelPipeline, ChannelPipelineFactory, Channel
  */
 object Bootstrap {
   def init {
+		// Database
+		Persistence.init
+
+		// Events
     EventDispatcher.start
+
+		// Networking
     val bootstrap = new ServerBootstrap(new NioServerSocketChannelFactory(Executors.newCachedThreadPool,
       Executors.newCachedThreadPool))
     bootstrap.setPipelineFactory(new ChannelPipelineFactory() {

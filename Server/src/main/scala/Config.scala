@@ -20,4 +20,12 @@ object Config {
    * The max amount of players online.  Set to 0 for no max.
    */
   val maxPlayers = 0
+
+	val DBUsername = "rsce"
+
+	val DBPassword = ""
+
+	val DBName = "rsce"
+
+	val DBHost = "jdbc:mysql://localhost:3306/"
 }
