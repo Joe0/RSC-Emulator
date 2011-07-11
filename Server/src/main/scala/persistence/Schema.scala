@@ -5,10 +5,10 @@ import org.squeryl.PrimitiveTypeMode._
 import com.joepritzel.rsce.persistence.entity._
 
 object Schema extends Schema {
-	val players = table[Player]
+	val players = table[Player]("players")
 	
 	on(players)(p => declare(
-		p.name is (unique, dbType("varchar(12)")),
+		p.id is (unique, dbType("varchar(12)")),
 		p.email is(dbType("varchar(256)")),
 		p.passwordMD5 is(dbType("varchar(32)")),
 		p.saltMD5 is(dbType("varchar(256)")),
@@ -17,7 +17,7 @@ object Schema extends Schema {
 		p.x is(dbType("integer")),
 		p.y is(dbType("integer")),
 		p.groupID is(dbType("integer")),
-		p.subscriptonTime is(dbType("datetime")),
+		p.subscriptionTime is(dbType("datetime")),
 		p.lastIP is(dbType("varchar(15)")),
 		p.loggedIn is(dbType("bool")),
 		p.chatBlock is(dbType("bool")),

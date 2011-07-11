@@ -4,10 +4,9 @@ import java.sql.Timestamp
 import org.squeryl.KeyedEntity
 
 class Player(name_ : String, email_ : String, passwordMD5_ : String, saltMD5_ : String, passwordSHA_ : String, saltSHA_ : String, x_ : Int,
- y_ : Int, group_ : Int, subscriptonTime_ : Timestamp, lastIP_ : String, loggedIn_ : Boolean, chatBlock_ : Boolean, privateBlock_ : Boolean,
+ y_ : Int, group_ : Int, subscriptionTime_ : Timestamp, lastIP_ : String, loggedIn_ : Boolean, chatBlock_ : Boolean, privateBlock_ : Boolean,
 	 tradeBlock_ : Boolean, duelBlock_ : Boolean, autoCamera_ : Boolean, sound_ : Boolean, oneMouseButton_ : Boolean) extends KeyedEntity[String] {
 	val id = name_
-	val name = name_
 	val email = email_
 	val passwordMD5 = passwordMD5_
 	val saltMD5 = saltMD5_
@@ -17,7 +16,7 @@ class Player(name_ : String, email_ : String, passwordMD5_ : String, saltMD5_ : 
 	val y = y_
 	val groupID = group_
 
-	var subscriptonTime = subscriptonTime_
+	var subscriptionTime = subscriptionTime_
 	var lastIP = lastIP_
 	var loggedIn = loggedIn_
 	var chatBlock = chatBlock_
