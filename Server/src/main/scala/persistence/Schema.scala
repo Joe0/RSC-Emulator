@@ -4,8 +4,13 @@ import org.squeryl._
 import org.squeryl.PrimitiveTypeMode._
 import com.joepritzel.rsce.persistence.entity._
 
+/**
+ * This object represents the database schema.
+ * 
+ * @author Joe Pritzel
+ */
 object Schema extends Schema {
-	val players = table[Player]("players")
+	val players = table[PlayerData]("players")
 	
 	on(players)(p => declare(
 		p.id is (unique, dbType("varchar(12)")),

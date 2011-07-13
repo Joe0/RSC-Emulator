@@ -22,8 +22,6 @@ object Login extends Event {
           val player = p.player
           var responseCode = 0.toByte
 
-          var info: (String, String, Boolean) = null
-
           try {
             val data = {
               val bytes = new Array[Byte](payload.readableBytes)
@@ -82,10 +80,19 @@ object Login extends Event {
               }
             }
 
+						// There should be as little information returned
+						// regarding the correctness of data sent as possible
+						// without creating a new vector for attack
+
             if (Config.maxPlayers != 0 && World.playerCount >= Config.maxPlayers)
               responseCode = 10
 
-            if ((p.opcode == 77 && originalKey77 != player.serverKey()) || {
+            if (Config.versionProtection && Config.version != version) {
+              responseCode = 4
+              Logger.warning("Client version mismatch - " + Config.version + " != " + version + " username = " + username)
+            }
+
+						if ((p.opcode == 77 && originalKey77 != player.serverKey()) || {
               var ret = false
               if (keyBytes != null) {
                 val orig = player.publicKey().getEncoded
@@ -104,13 +111,8 @@ object Login extends Event {
               Logger.warning("Key mismatch - username = " + username)
             }
 
-            if (Config.versionProtection && Config.version != version) {
-              responseCode = 4
-              Logger.warning("Client version mismatch - " + Config.version + " != " + version + " username = " + username)
-            }
-
-            if (responseCode == 0) {
-              info = (username, password, reconnecting)
+            if (responseCode == 0 && !player.load(username, password, reconnecting)) {
+              responseCode = 2
             }
           } catch {
             case e: Exception => {
@@ -124,8 +126,6 @@ object Login extends Event {
           player.channel().write(pb.toPacket)
           if (responseCode != 0)
             World.removePlayer(player)
-          else
-            player.load(info, p.opcode != 77)
         }
       }
     }
