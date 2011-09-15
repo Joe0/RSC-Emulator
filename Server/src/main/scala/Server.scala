@@ -1,4 +1,5 @@
 package com.joepritzel.rsce
+import java.lang.management.ManagementFactory
 
 /**
  * The core of the server.
@@ -9,8 +10,7 @@ object Server {
   def main(args: Array[String]): Unit = {
     Bootstrap.init
     Logger.info("Ready to start")
-    while (true) {
-      Thread.sleep(5000)
-    }
+    readLine
+    Bootstrap.stop
   }
 }

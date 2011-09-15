@@ -1,8 +1,9 @@
 package com.joepritzel.rsce.persistence
 
+import com.joepritzel.rsce.persistence.entity._
+import java.sql.Timestamp
 import org.squeryl._
 import org.squeryl.PrimitiveTypeMode._
-import com.joepritzel.rsce.persistence.entity._
 
 /**
  * This object represents the database schema.
@@ -11,6 +12,8 @@ import com.joepritzel.rsce.persistence.entity._
  */
 object Schema extends Schema {
 	val players = table[PlayerData]("players")
+	val stats = table[PlayerStats]("stats")
+	val inventory = table[Inventory]("inventory")
 	
 	on(players)(p => declare(
 		p.id is (unique, dbType("varchar(12)")),
@@ -19,18 +22,28 @@ object Schema extends Schema {
 		p.saltMD5 is(dbType("varchar(256)")),
 		p.passwordSHA is(dbType("varchar(128)")),
 		p.saltSHA is(dbType("varchar(256)")),
-		p.x is(dbType("integer")),
-		p.y is(dbType("integer")),
-		p.groupID is(dbType("integer")),
-		p.subscriptionTime is(dbType("datetime")),
 		p.lastIP is(dbType("varchar(15)")),
-		p.loggedIn is(dbType("bool")),
-		p.chatBlock is(dbType("bool")),
-		p.privateBlock is(dbType("bool")),
-		p.tradeBlock is(dbType("bool")),
-		p.duelBlock is(dbType("bool")),
-		p.autoCamera is(dbType("bool")),
-		p.sound is(dbType("bool")),
-		p.oneMouseButton is(dbType("bool"))
+		p.lastIP defaultsTo("0.0.0.0"),
+		p.x defaultsTo(777),
+		p.y defaultsTo(777),
+		p.groupID defaultsTo(0),
+		p.loggedIn defaultsTo(false),
+		p.chatBlock defaultsTo(false),
+		p.privateBlock defaultsTo(false),
+		p.tradeBlock defaultsTo(false),
+		p.duelBlock defaultsTo(false),
+		p.autoCamera defaultsTo(false),
+		p.sound defaultsTo(false),
+		p.oneMouseButton defaultsTo(false)
 	))
+
+	on(stats)(p => declare(
+		p.id is (unique, dbType("varchar(12)")),
+		p.hpExp defaultsTo(1200),
+		p.hp defaultsTo(10)
+	))
+	
+	on(inventory)(p => declare(
+	    p.id is (dbType("varchar(12)"))
+	    ))
 }

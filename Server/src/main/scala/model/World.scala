@@ -7,7 +7,7 @@ import scala.ref.WeakReference
  *
  * @author Joe Pritzel
  */
-object World {
+object World extends Entity {
   private val players = new CopyOnWriteArrayList[Player]
   private val idMap = new ConcurrentHashMap[Int, WeakReference[Player]]
 
@@ -41,4 +41,8 @@ object World {
    * Returns the amount of players in the server.
    */
   def playerCount = players.size
+
+  override def dispose {
+    players.asInstanceOf[List[Player]].foreach(p => p.dispose)
+  }
 }

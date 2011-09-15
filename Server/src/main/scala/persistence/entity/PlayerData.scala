@@ -131,7 +131,7 @@ object PlayerData {
 	/**
 	 * Returns a single player that has a matching id, MD5 hash, and SHA-512 hash.
 	 */
-	def loadPlayer(user: String, passwordMD5: String, passwordSHA: String) = {
+	def load(user: String, passwordMD5: String, passwordSHA: String) = {
 		var result: PlayerData = null
 		
 		transaction {
@@ -148,7 +148,7 @@ object PlayerData {
 	/**
 	 * Updates a player's record using the one provided.
 	 */
-	def savePlayer(p: PlayerData) {
+	def save(p: PlayerData) {
 		transaction {
 			Schema.players.update(p)
 		}
