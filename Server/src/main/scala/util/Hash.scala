@@ -8,19 +8,23 @@ import java.security.MessageDigest
  * @author Joe Pritzel
  */
 object Hash {
-	private def encrypt(s: String, algo: String) = {
-    val md = MessageDigest.getInstance(algo)
-    md.reset
-    md.update(s.getBytes)
-    md.digest.map(0xFF & _).map { "%02x".format(_) }.foldLeft("") { _ + _ }
-  }
+	
+	/**
+	 * This method returns the digest of a string, when given a specified algorithm.
+	 */
+	private def hash(s: String, algo: String) = {
+		val md = MessageDigest.getInstance(algo)
+		md.reset
+		md.update(s.getBytes)
+		md.digest.map(0xFF & _).map { "%02x".format(_) }.foldLeft("") { _ + _ }
+	}
 
 	/**
 	 * This method returns the MD5 hash of a string.<br>
 	 * If a salt is provided, it prepends it to the string.
 	 */
 	def md5(s: String, salt: String = "") = {
-		encrypt(salt + s, "MD5")
+		hash(salt + s, "MD5")
 	}
 
 	/**
@@ -28,6 +32,6 @@ object Hash {
 	 * If a salt is provided, it prepends it to the string.
 	 */
 	def sha512(s: String, salt: String = "") = {
-		encrypt(salt + s, "SHA-512")
+		hash(salt + s, "SHA-512")
 	}
 }
