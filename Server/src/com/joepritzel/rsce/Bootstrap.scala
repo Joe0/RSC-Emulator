@@ -28,7 +28,19 @@ object Bootstrap {
     val factory = new NioServerSocketChannelFactory(Executors.newCachedThreadPool, Executors.newCachedThreadPool)
     val bootstrap = new ServerBootstrap(factory)
     bootstrap.setPipelineFactory(new CustomPipelineFactory)
+    bootstrap.setOption("child.tcpNoDelay", true)
+    bootstrap.setOption("child.keepAlive", true)
+    bootstrap.setOption("child.reuseAddress", true)
+    bootstrap.setOption("child.connectTimeoutMillis", 30000)
+    bootstrap.setOption("readWriteFair", true)
     bootstrap.bind(new InetSocketAddress(43595))
+    Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+			override def run {
+				println("Shutting down.");
+				World.dispose
+				factory.releaseExternalResources();
+			}
+		}));
   }
 
   def stop {

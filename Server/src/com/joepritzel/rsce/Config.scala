@@ -32,4 +32,12 @@ object Config {
   val regionTickInterval = 600
   
   val logPackets = false
+  
+  val maxChannelExecutorThreads = 4
+  
+  val maxChannelMemorySize = 0
+  
+  val maxTotalMemorySize = 0
+  
+  val channelExecutorThreadKeepAliveTime = 60000 // 1 minute
 }

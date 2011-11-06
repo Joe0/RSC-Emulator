@@ -9,8 +9,6 @@ import java.lang.management.ManagementFactory
 object Server {
   def main(args: Array[String]): Unit = {
     Bootstrap.init
-    Logger.info("Ready to start")
-    readLine
     Bootstrap.stop
   }
 }
