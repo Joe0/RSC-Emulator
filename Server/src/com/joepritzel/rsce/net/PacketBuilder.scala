@@ -1,5 +1,6 @@
 package com.joepritzel.rsce.net
 import org.jboss.netty.buffer.{ ChannelBuffer, ChannelBuffers }
+import com.joepritzel.rsce.util.Property
 
 /**
  * This class is used to build packets.

@@ -1,4 +1,4 @@
-package scala
+package com.joepritzel.rsce.util
 import java.util.concurrent.atomic.AtomicReference
 
 /**

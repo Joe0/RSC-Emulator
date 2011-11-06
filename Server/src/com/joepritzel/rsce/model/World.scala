@@ -1,15 +1,14 @@
 package com.joepritzel.rsce.model
 import java.util.concurrent.{ ConcurrentHashMap, CopyOnWriteArrayList }
 import scala.ref.WeakReference
-
 /**
- * This object is the world, and contains references to everything inside of it.
+ * This class is the world, and contains references to everything inside of it.
  *
  * @author Joe Pritzel
  */
 object World extends Entity {
   private val players = new CopyOnWriteArrayList[Player]
-  private val idMap = new ConcurrentHashMap[Int, WeakReference[Player]]
+  private val idMap = new ConcurrentHashMap[Int, WeakReference[Player]]  
 
   /**
    * Adds a player to the world.

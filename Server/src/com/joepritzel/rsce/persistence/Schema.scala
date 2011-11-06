@@ -6,11 +6,12 @@ import org.squeryl._
 import org.squeryl.PrimitiveTypeMode._
 
 /**
- * This object represents the database schema.
+ * This class represents the database schema.
  * 
  * @author Joe Pritzel
  */
-object Schema extends Schema {
+object Schema extends org.squeryl.Schema {
+	
 	val players = table[PlayerData]("players")
 	val stats = table[PlayerStats]("stats")
 	val inventory = table[Inventory]("inventory")

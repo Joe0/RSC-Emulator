@@ -21,11 +21,15 @@ object Config {
    */
   val maxPlayers = 0
 
-	val DBUsername = "rsce"
+  val DBUsername = "rsce"
 
-	val DBPassword = ""
+  val DBPassword = ""
 
-	val DBName = "rsce"
+  val DBName = "rsce"
 
-	val DBHost = "jdbc:mysql://localhost:3306/"
+  val DBHost = "jdbc:mysql://localhost:3306/"
+   
+  val regionTickInterval = 600
+  
+  val logPackets = false
 }

@@ -2,18 +2,21 @@ package com.joepritzel.rsce.net
 import com.joepritzel.rsce.event.EventDispatcher
 import com.joepritzel.rsce.model.{ Player, World }
 import org.jboss.netty.channel.{ ChannelHandlerContext, ChannelStateEvent, ExceptionEvent, MessageEvent, SimpleChannelUpstreamHandler }
+import org.jboss.netty.channel.ChannelHandler.Sharable
 
 /**
  * A SimpleChannleUpstreamHandler that dispatches messages to the corresponding class.
  *
  * @author Joe Pritzel
  */
+@Sharable
 class ServerUpstreamHandler extends SimpleChannelUpstreamHandler {
 
   @throws(classOf[Exception])
   override def messageReceived(ctx: ChannelHandlerContext, e: MessageEvent) {
-    e.getMessage.asInstanceOf[Packet].player = World.getPlayerById(e.getChannel.getId)
-    EventDispatcher ! e.getMessage
+    val packet = e.getMessage.asInstanceOf[Packet]
+    packet.player = World.getPlayerById(e.getChannel.getId)
+    EventDispatcher.process(packet)
   }
 
   @throws(classOf[Exception])
@@ -25,7 +28,8 @@ class ServerUpstreamHandler extends SimpleChannelUpstreamHandler {
 
   @throws(classOf[Exception])
   override def exceptionCaught(ctx: ChannelHandlerContext, e: ExceptionEvent) {
-    World.getPlayerById(e.getChannel.getId).dispose
-    e.getChannel.close
+    //World.getPlayerById(e.getChannel.getId).dispose
+    //e.getChannel.close
+    e.getCause.printStackTrace
   }
 }

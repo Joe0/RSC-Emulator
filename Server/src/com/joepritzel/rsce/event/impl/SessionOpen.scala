@@ -1,5 +1,4 @@
 package com.joepritzel.rsce.event.impl
-import com.joepritzel.rsce.event.Event
 import com.joepritzel.rsce.net.{ Packet, PacketBuilder }
 import com.joepritzel.rsce.util.RSA
 import java.security.SecureRandom
@@ -12,20 +11,9 @@ import java.security.SecureRandom
  */
 object SessionOpen extends Event {
 
-  override def act {
-    loop {
-      react {
-        case p: Packet => {
-          sender ! false
-          handle(p)
-        }
-      }
-    }
-  }
-
   private val random = new SecureRandom
 
-  private def handle(p: Packet) {
+  override def fire(p: Packet) {
     val player = p.player
     val payload = p.payload
     if (player.initialized()) {

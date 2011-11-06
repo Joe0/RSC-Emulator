@@ -8,7 +8,8 @@
 	<property name="jar" value="moparclassic.jar" />
 	<property name="main-class" value="com.joepritzel.rsce.Server" />
 	<property name="scala-version" value="2.9.1" />
-	<property name="ivy.lib.dir" value="lib_managed"/>
+	<property name="ivy.lib.dir" value="lib_managed" />
+	<property name="test" value="src/test" />
 
 	<fileset id="libraries" dir="${lib}">
 		<include name="*.jar" />
@@ -45,6 +46,19 @@
 
 	<target name="resolve" depends="init">
 		<ivy:retrieve sync="true" />
+	</target>
+
+	<target name="test">
+		<taskdef name="scalatest" classname="org.scalatest.tools.ScalaTestAntTask">
+			<classpath refid="library-path" />
+			<classpath refid="binary-path" />
+		</taskdef>
+		<scalatest haltonfailure="true" fork="true">
+			<reporter type="stdout" config="WFD" />
+			<runpath>
+				<pathelement location="${bin}" />
+			</runpath>
+		</scalatest>
 	</target>
 
 	<target name="build" depends="resolve">
