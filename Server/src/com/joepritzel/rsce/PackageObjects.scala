@@ -5,6 +5,10 @@ package object rsce {
 }
 
 package rsce {
+  
+  package object alert {
+     val Logger = log.Logger
+  }
 
   package object event {
     val Logger = log.Logger
@@ -12,7 +16,9 @@ package rsce {
 
   package event {
     package object impl {
-      type Event = _root_.com.joepritzel.rsce.event.Event
+      type Event[T] = _root_.com.joepritzel.rsce.event.Event[T]
+      type Packet = _root_.com.joepritzel.rsce.net.Packet
+      type PacketBuilder = _root_.com.joepritzel.rsce.net.PacketBuilder
       val Logger = log.Logger
     }
   }

@@ -2,6 +2,11 @@ package com.joepritzel.rsce.persistence.entity
 
 import org.squeryl.KeyedEntity
 
+/**
+ * A class that represents a single item in a player's inventory.
+ * 
+ * @author Joe Pritzel
+ */
 class Inventory(name_ : String, item_ : Int, amount_ : Long, wearing_ : Boolean, slot_ : Int) extends KeyedEntity[String] {
 	var id = name_
 	var item = item_
@@ -20,6 +25,9 @@ object Inventory {
   import org.squeryl.PrimitiveTypeMode._
   import org.squeryl.Query
 
+  /**
+   * Loads the inventory from the database.
+   */
   def load(user: String): Option[Inventory] = {
     var result: Option[Inventory] = None
     transaction {

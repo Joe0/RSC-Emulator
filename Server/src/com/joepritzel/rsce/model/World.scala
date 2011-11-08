@@ -1,8 +1,10 @@
 package com.joepritzel.rsce.model
 import java.util.concurrent.{ ConcurrentHashMap, CopyOnWriteArrayList }
 import scala.ref.WeakReference
+import scala.collection.JavaConversions._
+
 /**
- * This class is the world, and contains references to everything inside of it.
+ * This object is the world, and contains references to everything inside of it.
  *
  * @author Joe Pritzel
  */
@@ -25,6 +27,11 @@ object World extends Entity {
     p.dispose
     players.remove(p)
   }
+  
+  /**
+   * Returns a the list of players.
+   */
+  def getPlayers = players
 
   /**
    * Returns a Player when given the id from the channel.
@@ -42,6 +49,6 @@ object World extends Entity {
   def playerCount = players.size
 
   override def dispose {
-    players.asInstanceOf[List[Player]].foreach(p => p.dispose)
+    players.foreach(p => p.dispose)
   }
 }

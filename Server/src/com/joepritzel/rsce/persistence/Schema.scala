@@ -6,7 +6,7 @@ import org.squeryl._
 import org.squeryl.PrimitiveTypeMode._
 
 /**
- * This class represents the database schema.
+ * This object represents the database schema.
  * 
  * @author Joe Pritzel
  */

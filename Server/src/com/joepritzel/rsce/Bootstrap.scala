@@ -1,6 +1,6 @@
 package com.joepritzel.rsce
 
-import event.EventDispatcher
+import event.EventManager
 import persistence.Persistence
 import java.net.InetSocketAddress
 import java.util.concurrent.Executors
@@ -26,7 +26,7 @@ object Bootstrap {
     // Networking
     Logger.info("Setting up networking")
     val factory = new NioServerSocketChannelFactory(Executors.newCachedThreadPool, Executors.newCachedThreadPool)
-    val bootstrap = new ServerBootstrap(factory)
+    bootstrap = new ServerBootstrap(factory)
     bootstrap.setPipelineFactory(new CustomPipelineFactory)
     bootstrap.setOption("child.tcpNoDelay", true)
     bootstrap.setOption("child.keepAlive", true)
@@ -35,15 +35,16 @@ object Bootstrap {
     bootstrap.setOption("readWriteFair", true)
     bootstrap.bind(new InetSocketAddress(43595))
     Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-			override def run {
-				println("Shutting down.");
-				World.dispose
-				factory.releaseExternalResources();
-			}
-		}));
+      override def run {
+        println("Shutting down");
+        stop
+        factory.releaseExternalResources();
+      }
+    }));
   }
 
   def stop {
+    // Don't use Logger in here because it might/will already be shut down.
     World.dispose
     println("World saved")
     bootstrap.releaseExternalResources

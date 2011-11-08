@@ -6,6 +6,11 @@ import org.jboss.netty.channel.ChannelHandlerContext
 import org.jboss.netty.channel.ChannelStateEvent
 import org.jboss.netty.channel.MessageEvent
 
+/**
+ * This class is used to log 'important' ChannelEvents.
+ *
+ * @author Joe Pritzel
+ */
 @Sharable
 class LogHandler extends SimpleChannelHandler {
   @throws(classOf[Exception])

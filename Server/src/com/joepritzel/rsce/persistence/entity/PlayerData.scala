@@ -120,6 +120,9 @@ object PlayerData {
 	import org.squeryl.PrimitiveTypeMode._
 	import org.squeryl.Query
 
+	/**
+	 * Returns the salts for the player.
+	 */
 	def getSalts(user: String) = {
 		var result: (String, String) = null
 		transaction {

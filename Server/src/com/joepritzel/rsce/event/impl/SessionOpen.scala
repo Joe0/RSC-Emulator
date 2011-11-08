@@ -1,5 +1,4 @@
 package com.joepritzel.rsce.event.impl
-import com.joepritzel.rsce.net.{ Packet, PacketBuilder }
 import com.joepritzel.rsce.util.RSA
 import java.security.SecureRandom
 
@@ -9,7 +8,7 @@ import java.security.SecureRandom
  *
  * @author Joe Pritzel
  */
-object SessionOpen extends Event {
+object SessionOpen extends Event[Packet] {
 
   private val random = new SecureRandom
 
@@ -28,20 +27,29 @@ object SessionOpen extends Event {
     val className = new String(bytes)
     player.clientMainClassName := className
 
+    if (rsca(p))
+      return
+
+    // The way it should be done
+    val keys = RSA.generateKeyPair
+    player.publicKey := keys._1
+    player.privateKey := keys._2
+    val pb = new PacketBuilder()
+    pb.buffer().writeInt(keys._1.getEncoded.length)
+    pb.buffer().writeBytes(keys._1.getEncoded)
+    player.channel().write(pb.toPacket)
+
+  }
+
+  def rsca(p: Packet) = {
     if (p.opcode == 32) {
       val serverKey = random.nextLong
-      player.serverKey := serverKey
+      p.player.serverKey := serverKey
       val pb = new PacketBuilder()
       pb.buffer().writeLong(serverKey)
-      player.channel().write(pb.toPacket)
-    } else {
-      val keys = RSA.generateKeyPair
-      player.publicKey := keys._1
-      player.privateKey := keys._2
-      val pb = new PacketBuilder()
-      pb.buffer().writeInt(keys._1.getEncoded.length)
-      pb.buffer().writeBytes(keys._1.getEncoded)
-      player.channel().write(pb.toPacket)
+      p.player.channel().write(pb.toPacket)
+      true
     }
+    false
   }
 }

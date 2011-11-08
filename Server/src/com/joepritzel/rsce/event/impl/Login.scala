@@ -1,6 +1,5 @@
 package com.joepritzel.rsce.event.impl
 import com.joepritzel.rsce.model.{ World, Player }
-import com.joepritzel.rsce.net.{ Packet, PacketBuilder }
 import com.joepritzel.rsce.util.{ InsecureRSA, RSA }
 import com.joepritzel.rsce.Config
 import org.jboss.netty.buffer.ChannelBuffers
@@ -12,9 +11,9 @@ import org.jboss.netty.channel.Channel
  *
  * @author Joe Pritzel
  */
-object Login extends Event {
+object Login extends Event[Packet] {
 
-  def fire(p: Packet) {
+  override def fire(p: Packet) {
     var payload = p.payload
     val player = p.player
     var responseCode = 0.toByte

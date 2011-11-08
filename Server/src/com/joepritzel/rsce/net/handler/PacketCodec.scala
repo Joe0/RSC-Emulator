@@ -14,7 +14,7 @@ import org.jboss.netty.channel.Channels
 import com.joepritzel.rsce.model.World
 
 /**
- * A class that encodes and decodes packets sent by the RSC client.
+ * A class that encodes and decodes packets sent by the client.
  *
  * @author Joe Pritzel
  */

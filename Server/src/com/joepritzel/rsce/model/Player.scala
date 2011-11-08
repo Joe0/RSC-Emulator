@@ -3,7 +3,7 @@ import com.joepritzel.rsce.persistence.entity.{ PlayerData, Inventory, PlayerSta
 import java.security.{ PrivateKey, PublicKey }
 import java.sql.Timestamp
 import org.jboss.netty.channel.Channel
-import com.joepritzel.rsce.util.Property
+import com.joepritzel.rsce.util.{ Property, Number }
 
 /**
  * This class represents a player.
@@ -24,7 +24,7 @@ class Player extends Entity {
 
   val initialized = new Property[Boolean](false)
 
-  val nameTestValue = new Property[Int](Integer.MIN_VALUE)
+  val nameTestValue = new Number[Int](Integer.MIN_VALUE)
 
   val clientMainClassName = new Property[String](null)
 
@@ -32,13 +32,15 @@ class Player extends Entity {
 
   val privateKey = new Property[PrivateKey](null)
 
-  val serverKey = new Property[Long](0L)
+  val serverKey = new Number[Long](0L)
 
   val playerData = new Property[PlayerData](null)
 
   val inventory = new Property[Inventory](null)
 
   val stats = new Property[PlayerStats](null)
+
+  val sessionFlag = new Number[Int](0)
 
   def load(user: String, password: String, reconnecting: Boolean) = {
     import com.joepritzel.rsce.util.Hash

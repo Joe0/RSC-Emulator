@@ -1,5 +1,6 @@
 package com.joepritzel.rsce
 import java.lang.management.ManagementFactory
+import com.joepritzel.rsce.util.Stats
 
 /**
  * The core of the server.
@@ -9,6 +10,8 @@ import java.lang.management.ManagementFactory
 object Server {
   def main(args: Array[String]): Unit = {
     Bootstrap.init
-    Bootstrap.stop
+    Logger.info("Ready")
+    readLine
+    System.exit(0)
   }
 }

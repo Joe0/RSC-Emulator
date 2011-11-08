@@ -11,12 +11,12 @@ object EventLookupService {
   /**
    * Map of all events and their opcodes.
    */
-  private var mapping = Map[Int, Event](32 -> SessionOpen, 33 -> SessionOpen, 77 -> Login, 78 -> Login)
+  private var mapping = Map[Int, Event[Packet]](32 -> SessionOpen, 33 -> SessionOpen, 77 -> Login, 78 -> Login, 5 -> FlaggedProcesses)
 
   /**
    * Returns previous value, if there was one.
    */
-  def register(opcode: Int, event: Event) = {
+  def register(opcode: Int, event: Event[Packet]) = {
     val prev = mapping.get(opcode)
     mapping += ((opcode, event))
     prev

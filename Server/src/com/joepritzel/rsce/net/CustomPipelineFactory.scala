@@ -10,6 +10,11 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import org.jboss.netty.handler.execution.ExecutionHandler
 
+/**
+ * The ChannelPipelineFactory.
+ *
+ * @author Joe Pritzel
+ */
 class CustomPipelineFactory extends ChannelPipelineFactory {
   val packetCodec = new PacketCodec
   val serverHandler = new ServerUpstreamHandler

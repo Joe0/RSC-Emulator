@@ -40,4 +40,6 @@ object Config {
   val maxTotalMemorySize = 0
   
   val channelExecutorThreadKeepAliveTime = 60000 // 1 minute
+  
+  val eventManagerThreads = 4
 }

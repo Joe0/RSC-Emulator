@@ -1,11 +1,11 @@
 package com.joepritzel.rsce.net
-import com.joepritzel.rsce.event.EventDispatcher
+import com.joepritzel.rsce.event.EventManager
 import com.joepritzel.rsce.model.{ Player, World }
 import org.jboss.netty.channel.{ ChannelHandlerContext, ChannelStateEvent, ExceptionEvent, MessageEvent, SimpleChannelUpstreamHandler }
 import org.jboss.netty.channel.ChannelHandler.Sharable
 
 /**
- * A SimpleChannleUpstreamHandler that dispatches messages to the corresponding class.
+ * A SimpleChannleUpstreamHandler that passes messages to the EventManager, and handles new connections.
  *
  * @author Joe Pritzel
  */
@@ -16,7 +16,7 @@ class ServerUpstreamHandler extends SimpleChannelUpstreamHandler {
   override def messageReceived(ctx: ChannelHandlerContext, e: MessageEvent) {
     val packet = e.getMessage.asInstanceOf[Packet]
     packet.player = World.getPlayerById(e.getChannel.getId)
-    EventDispatcher.process(packet)
+    EventManager.process(packet)
   }
 
   @throws(classOf[Exception])
