@@ -1,1 +1,5 @@
 This is an emulator for RSC, an old MMORPG.
+
+The aim of this project is to make a high performance framework that is highly extensible, and has a low learning curve.
+
+The business logic will be abstracted into events.  Primitive events (arise as a direct result from user interaction) should have the ability to be 'hooked' with the ability to set a priority level.

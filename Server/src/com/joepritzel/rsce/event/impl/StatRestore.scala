@@ -14,7 +14,7 @@ import com.joepritzel.rsce.util.Stats
 object StatRestore {
 
   // TODO: Account for users relogging to avoid stat restore
-  
+
   /**
    * Returns the event.
    */
