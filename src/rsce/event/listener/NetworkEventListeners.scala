@@ -1,10 +1,9 @@
 package rsce.event.listener
 
 import javax.inject.Inject
-import rsce.event._
-import rsce.entity.World
-import rsce.entity.Player
 import rsce.core.event.EventHandler
+import rsce.entity.{World, Player}
+import rsce.event.{ChannelConnectedEvent, ChannelClosedEvent}
 
 object NetworkEventListenerBootstrap {
   val eh = World.injector.getInstance(classOf[EventHandler])
@@ -13,7 +12,7 @@ object NetworkEventListenerBootstrap {
 
 class ChannelConnectedEventListener {
   @Inject
-  def connect(event: ChannelConnectedEvent) {
+  def connect(event : ChannelConnectedEvent) {
     // Assume player for now
     val entity = World.injector.getInstance(classOf[Player])
     entity.setChannel(event.channel)
@@ -23,7 +22,7 @@ class ChannelConnectedEventListener {
 
 class ChannelClosedEventListener {
   @Inject
-  def close(event: ChannelClosedEvent) {
+  def close(event : ChannelClosedEvent) {
     World.removeNetworkedEntity(event.channel.getId)
   }
 }

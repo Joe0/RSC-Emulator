@@ -1,19 +1,18 @@
 package rsce.service
 
-import rsce.entity.traits.{ Networked => N }
-import rsce.valueobject.{ Packet => P }
-import rsce.entity.{ Entity => E }
+import rsce.entity.{Entity => E}
+import rsce.entity.traits.{Networked => N}
 import rsce.event._
-import rsce.valueobject.Point
+import rsce.valueobject.{Packet => P}
 
 object PacketDecodingService {
 
   val map = createMapping
 
-  def decode(entity: E with N, p: P) = {
+  def decode(entity : E with N, p : P) = {
     map.get(p.opcode) match {
       case Some(d) => Some(d(entity, p))
-      case None => None
+      case None    => None
     }
   }
 
@@ -44,33 +43,33 @@ private object Functions {
   /*
    *  Misc
    */
-  def dummy(entity: E with N, p: P) = DummyPacketEvent(entity, p.payload.readByte, p.payload.readShort)
-  def trap(entity: E with N, p: P) = TrapPacketEvent(entity)
-  def ping(entity: E with N, p: P) = PingPacketEvent(entity, p.payload.readByte)
-  def report(entity: E with N, p: P) = ReportPacketEvent(entity, p.payload.readLong, p.payload.readByte)
-  def sessionRequest(entity: E with N, p: P) = SessionRequestPacketEvent(entity, p.payload.readByte, p.payload.getString().trim)
+  def dummy(entity : E with N, p : P) = DummyPacketEvent(entity, p.payload.readByte, p.payload.readShort)
+  def trap(entity : E with N, p : P) = TrapPacketEvent(entity)
+  def ping(entity : E with N, p : P) = PingPacketEvent(entity, p.payload.readByte)
+  def report(entity : E with N, p : P) = ReportPacketEvent(entity, p.payload.readLong, p.payload.readByte)
+  def sessionRequest(entity : E with N, p : P) = SessionRequestPacketEvent(entity, p.payload.readByte, p.payload.getString().trim)
 
   /*
    * Inv
    */
-  def invUseOnPlayer(entity: E with N, p: P) = InvUseOnPlayerPacketEvent(entity, p.payload.readLong, p.payload.readShort)
-  def invUseOnItem(entity: E with N, p: P) = InvUseOnItemPacketEvent(entity, p.payload.readShort, p.payload.readShort)
-  def invUseOnGroundItem(entity: E with N, p: P) = InvUseOnGroundItemPacketEvent(entity, p.payload.getPoint, p.payload.readShort, p.payload.readShort)
-  def invUseItemOnDoor(entity: E with N, p: P) = InvUseOnDoorPacketEvent(entity, p.payload.getPoint, p.payload.readByte, p.payload.readShort)
+  def invUseOnPlayer(entity : E with N, p : P) = InvUseOnPlayerPacketEvent(entity, p.payload.readLong, p.payload.readShort)
+  def invUseOnItem(entity : E with N, p : P) = InvUseOnItemPacketEvent(entity, p.payload.readShort, p.payload.readShort)
+  def invUseOnGroundItem(entity : E with N, p : P) = InvUseOnGroundItemPacketEvent(entity, p.payload.getPoint, p.payload.readShort, p.payload.readShort)
+  def invUseItemOnDoor(entity : E with N, p : P) = InvUseOnDoorPacketEvent(entity, p.payload.getPoint, p.payload.readByte, p.payload.readShort)
 
   /*
    * Spells
    */
-  def castOnGameObject(entity: E with N, p: P) = CastOnGameObjectPacketEvent(entity, p.payload.readShort, p.payload.getPoint)
+  def castOnGameObject(entity : E with N, p : P) = CastOnGameObjectPacketEvent(entity, p.payload.readShort, p.payload.getPoint)
 
   /*
    * Friend/Ignore
    */
-  def addIgnore(entity: E with N, p: P) = AddIgnorePacketEvent(entity, p.payload.readLong)
+  def addIgnore(entity : E with N, p : P) = AddIgnorePacketEvent(entity, p.payload.readLong)
 
   /*
    * Dueling
    */
-  def declineDuel(entity: E with N, p: P) = DeclineDuelPacketEvent(entity)
+  def declineDuel(entity : E with N, p : P) = DeclineDuelPacketEvent(entity)
 
 }

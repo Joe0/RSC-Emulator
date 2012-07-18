@@ -3,5 +3,5 @@ package rsce.entity
 import rsce.valueobject.Point
 
 class Entity {
-  var location: Point = new Point(-1, -1)
+  var location : Point = new Point(-1, -1)
 }

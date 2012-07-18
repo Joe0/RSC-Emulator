@@ -1,3 +1,3 @@
 package rsce.exception
 
-class InvalidStateException(msg: String) extends RuntimeException(msg)
+class InvalidStateException(msg : String) extends RuntimeException(msg)

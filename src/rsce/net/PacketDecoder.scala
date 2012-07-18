@@ -1,27 +1,25 @@
 package rsce.net;
 
 import org.jboss.netty.buffer.ChannelBuffer
-import org.jboss.netty.channel.Channel
-import org.jboss.netty.channel.ChannelHandlerContext
+import org.jboss.netty.channel.{ChannelHandlerContext, Channel}
 import org.jboss.netty.handler.codec.replay.ReplayingDecoder
-import rsce.valueobject.Packet
-import java.nio.HeapByteBuffer
+
 import rsce.exception.InvalidStateException
-import rsce.valueobject.Payload
+import rsce.valueobject.{Payload, Packet}
 
 class PacketDecoder extends ReplayingDecoder[States](States.READ_LENGTH) {
 
-  private var length: Int = -1
-  private var opcode: Byte = -1
+  private var length : Int = -1
+  private var opcode : Byte = -1
 
   @throws(classOf[Exception])
-  override protected def decode(ctx: ChannelHandlerContext, chan: Channel,
-    buf: ChannelBuffer, state: States): Packet = {
+  override protected def decode(ctx : ChannelHandlerContext, chan : Channel,
+                                buf : ChannelBuffer, state : States) : Packet = {
     go(buf, state)
   }
 
   @throws(classOf[Exception])
-  private def go(buf: ChannelBuffer, state: States): Packet = {
+  private def go(buf : ChannelBuffer, state : States) : Packet = {
     state match {
       case States.READ_LENGTH =>
         length = buf.readShort

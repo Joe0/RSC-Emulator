@@ -63,8 +63,8 @@ public class IOManager {
 	}
 
 	/**
-	 * Dispatches an io task to all subscribed io task listeners after the specified
-	 * number of milliseconds.
+	 * Dispatches an io task to all subscribed io task listeners after the
+	 * specified number of milliseconds.
 	 * 
 	 * @param task
 	 *            - The io task to dispatch.

@@ -9,7 +9,8 @@ import org.jboss.netty.bootstrap.ServerBootstrap;
 
 /**
  * This is the interface in which we use to start the networking portion of our
- * application. It will attempt to clean itself up when the server is shutting down.
+ * application. It will attempt to clean itself up when the server is shutting
+ * down.
  * 
  * @author Joe Pritzel
  * 

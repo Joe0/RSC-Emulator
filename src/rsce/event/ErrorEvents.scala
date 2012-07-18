@@ -1,7 +1,7 @@
 package rsce.event
 
-import rsce.valueobject.Packet
-import rsce.entity.traits.Networked
 import rsce.entity.Entity
+import rsce.entity.traits.Networked
+import rsce.valueobject.Packet
 
-case class EventDecodingFailed(entity: Entity with Networked, p: Packet)
+case class EventDecodingFailed(entity : Entity with Networked, p : Packet)
