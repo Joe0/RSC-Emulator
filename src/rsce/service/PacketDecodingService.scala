@@ -1,15 +1,15 @@
 package rsce.service
 
-import rsce.entity.{ Entity => E }
-import rsce.entity.traits.{ Networked => N }
+import rsce.entity.Entity
+import rsce.entity.traits.Networked
 import rsce.event._
-import rsce.valueobject.{ Packet => P }
+import rsce.valueobject.Packet
 
 object PacketDecodingService {
 
   val map = createMapping
 
-  def decode(entity : E with N, p : P) = {
+  def decode(entity : Entity with Networked, p : Packet) = {
     map.get(p.opcode) match {
       case Some(d) => Some(d(entity, p))
       case None    => None
@@ -19,7 +19,7 @@ object PacketDecodingService {
   def createMapping = {
     import Functions._
 
-    val m = new scala.collection.mutable.HashMap[Int, (E with N, P) => Any]
+    val m = new scala.collection.mutable.HashMap[Int, (Entity with Networked, Packet) => Any]
 
     m += 0 -> dummy _
     m += 3 -> trap _
@@ -42,42 +42,45 @@ object PacketDecodingService {
 
 private object Functions {
 
+  type E = Entity with Networked
+  type P = Packet
+
   /*
    *  Misc
    */
-  def dummy(entity : E with N, p : P) = DummyPacketEvent(entity, p.payload.readByte, p.payload.readShort)
-  def trap(entity : E with N, p : P) = TrapPacketEvent(entity)
-  def ping(entity : E with N, p : P) = PingPacketEvent(entity, p.payload.readByte)
-  def report(entity : E with N, p : P) = ReportPacketEvent(entity, p.payload.readLong, p.payload.readByte)
-  def sessionRequest(entity : E with N, p : P) = SessionRequestPacketEvent(entity, p.payload.readByte, p.payload.readString().trim)
-  def logout(entity : E with N, p : P) = LogoutPacketEvent(entity)
+  def dummy(entity : E, p : P) = DummyPacketEvent(entity, p.payload.readByte, p.payload.readShort)
+  def trap(entity : E, p : P) = TrapPacketEvent(entity)
+  def ping(entity : E, p : P) = PingPacketEvent(entity, p.payload.readByte)
+  def report(entity : E, p : P) = ReportPacketEvent(entity, p.payload.readLong, p.payload.readByte)
+  def sessionRequest(entity : E, p : P) = SessionRequestPacketEvent(entity, p.payload.readByte, p.payload.readString().trim)
+  def logout(entity : E, p : P) = LogoutPacketEvent(entity)
 
   /*
    * Inv
    */
-  def invUseOnPlayer(entity : E with N, p : P) = InvUseOnPlayerPacketEvent(entity, p.payload.readLong, p.payload.readShort)
-  def invUseOnItem(entity : E with N, p : P) = InvUseOnItemPacketEvent(entity, p.payload.readShort, p.payload.readShort)
-  def invUseOnGroundItem(entity : E with N, p : P) = InvUseOnGroundItemPacketEvent(entity, p.payload.readPoint, p.payload.readShort, p.payload.readShort)
-  def invUseItemOnDoor(entity : E with N, p : P) = InvUseOnDoorPacketEvent(entity, p.payload.readPoint, p.payload.readByte, p.payload.readShort)
+  def invUseOnPlayer(entity : E, p : P) = InvUseOnPlayerPacketEvent(entity, p.payload.readLong, p.payload.readShort)
+  def invUseOnItem(entity : E, p : P) = InvUseOnItemPacketEvent(entity, p.payload.readShort, p.payload.readShort)
+  def invUseOnGroundItem(entity : E, p : P) = InvUseOnGroundItemPacketEvent(entity, p.payload.readPoint, p.payload.readShort, p.payload.readShort)
+  def invUseItemOnDoor(entity : E, p : P) = InvUseOnDoorPacketEvent(entity, p.payload.readPoint, p.payload.readByte, p.payload.readShort)
 
   /*
    * Spells
    */
-  def castOnGameObject(entity : E with N, p : P) = CastOnGameObjectPacketEvent(entity, p.payload.readShort, p.payload.readPoint)
+  def castOnGameObject(entity : E, p : P) = CastOnGameObjectPacketEvent(entity, p.payload.readShort, p.payload.readPoint)
 
   /*
    * Friend/Ignore
    */
-  def addIgnore(entity : E with N, p : P) = AddIgnorePacketEvent(entity, p.payload.readLong)
+  def addIgnore(entity : E, p : P) = AddIgnorePacketEvent(entity, p.payload.readLong)
 
   /*
    * Dueling
    */
-  def declineDuel(entity : E with N, p : P) = DeclineDuelPacketEvent(entity)
+  def declineDuel(entity : E, p : P) = DeclineDuelPacketEvent(entity)
 
   /*
    * Object interation
    */
-  def secondaryObjectAction(entity : E with N, p : P) = SecondaryObjectAction(entity, p.payload.readPoint)
+  def secondaryObjectAction(entity : E, p : P) = SecondaryObjectAction(entity, p.payload.readPoint)
 
 }
