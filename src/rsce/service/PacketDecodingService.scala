@@ -35,6 +35,7 @@ object PacketDecodingService {
     m += 36 -> invUseItemOnDoor _
     m += 39 -> logout _
     m += 40 -> secondaryObjectAction _
+    m += 42 -> styleChange _
 
     m.toMap // Converts to an immutable map
   }
@@ -54,6 +55,7 @@ private object Functions {
   def report(entity : E, p : P) = ReportPacketEvent(entity, p.payload.readLong, p.payload.readByte)
   def sessionRequest(entity : E, p : P) = SessionRequestPacketEvent(entity, p.payload.readByte, p.payload.readString().trim)
   def logout(entity : E, p : P) = LogoutPacketEvent(entity)
+  def styleChange(entity : E, p : P) = StyleChangePacketEvent(entity, p.payload.readByte)
 
   /*
    * Inv
