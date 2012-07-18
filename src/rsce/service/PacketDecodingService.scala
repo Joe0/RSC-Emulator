@@ -36,6 +36,7 @@ object PacketDecodingService {
     m += 39 -> logout _
     m += 40 -> secondaryObjectAction _
     m += 42 -> styleChange _
+    m += 48 -> closeBank _
 
     m.toMap // Converts to an immutable map
   }
