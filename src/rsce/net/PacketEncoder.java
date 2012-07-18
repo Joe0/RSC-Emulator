@@ -10,7 +10,7 @@ import org.jboss.netty.handler.codec.oneone.OneToOneEncoder;
 import rsce.valueobject.Packet;
 
 @Sharable
-public class GSPacketEncoder extends OneToOneEncoder {
+public class PacketEncoder extends OneToOneEncoder {
 
 	@Override
 	protected Object encode(ChannelHandlerContext ctx, Channel chan, Object o)

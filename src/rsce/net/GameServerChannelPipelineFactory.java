@@ -15,7 +15,7 @@ import org.jboss.netty.handler.execution.OrderedMemoryAwareThreadPoolExecutor;
  */
 public class GameServerChannelPipelineFactory implements ChannelPipelineFactory {
 
-	private final GSPacketEncoder encoder = new GSPacketEncoder();
+	private final PacketEncoder encoder = new PacketEncoder();
 	private final PacketDecoder decoder = new PacketDecoder();
 	private final PacketHandler handler = new PacketHandler();
 
