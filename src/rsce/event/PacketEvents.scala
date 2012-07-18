@@ -1,7 +1,7 @@
 package rsce.event
 
-import rsce.entity.{Entity => E}
-import rsce.entity.traits.{Networked => N}
+import rsce.entity.{ Entity => E }
+import rsce.entity.traits.{ Networked => N }
 import rsce.valueobject.Point
 
 case class DummyPacketEvent(entity : E with N, unknownByte : Byte, clientVersion : Short)
@@ -16,3 +16,4 @@ case class CastOnGameObjectPacketEvent(entity : E with N, spellId : Int, point :
 case class AddIgnorePacketEvent(entity : E with N, ignoreUsernameHash : Long)
 case class SessionRequestPacketEvent(entity : E with N, userByte : Byte, username : String)
 case class DeclineDuelPacketEvent(entity : E with N)
+case class LogoutPacketEvent(entity : E with N)

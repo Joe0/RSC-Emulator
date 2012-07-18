@@ -1,9 +1,9 @@
 package rsce.service
 
-import rsce.entity.{Entity => E}
-import rsce.entity.traits.{Networked => N}
+import rsce.entity.{ Entity => E }
+import rsce.entity.traits.{ Networked => N }
 import rsce.event._
-import rsce.valueobject.{Packet => P}
+import rsce.valueobject.{ Packet => P }
 
 object PacketDecodingService {
 
@@ -33,6 +33,7 @@ object PacketDecodingService {
     m += 34 -> invUseOnGroundItem _
     m += 35 -> declineDuel _
     m += 36 -> invUseItemOnDoor _
+    m += 39 -> logout _
 
     m.toMap // Converts to an immutable map
   }
@@ -48,6 +49,7 @@ private object Functions {
   def ping(entity : E with N, p : P) = PingPacketEvent(entity, p.payload.readByte)
   def report(entity : E with N, p : P) = ReportPacketEvent(entity, p.payload.readLong, p.payload.readByte)
   def sessionRequest(entity : E with N, p : P) = SessionRequestPacketEvent(entity, p.payload.readByte, p.payload.getString().trim)
+  def logout(entity : E with N, p : P) = LogoutPacketEvent(entity)
 
   /*
    * Inv
