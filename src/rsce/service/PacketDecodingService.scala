@@ -49,40 +49,45 @@ private object Functions {
   /*
    *  Misc
    */
-  def dummy(entity : E, p : P) = DummyPacketEvent(entity, p.payload.readByte, p.payload.readShort)
-  def trap(entity : E, p : P) = TrapPacketEvent(entity)
-  def ping(entity : E, p : P) = PingPacketEvent(entity, p.payload.readByte)
-  def report(entity : E, p : P) = ReportPacketEvent(entity, p.payload.readLong, p.payload.readByte)
-  def sessionRequest(entity : E, p : P) = SessionRequestPacketEvent(entity, p.payload.readByte, p.payload.readString().trim)
-  def logout(entity : E, p : P) = LogoutPacketEvent(entity)
-  def styleChange(entity : E, p : P) = StyleChangePacketEvent(entity, p.payload.readByte)
+  def dummy(entity : E, p : P) = DummyEvent(entity, p.payload.readByte, p.payload.readShort)
+  def trap(entity : E, p : P) = TrapEvent(entity)
+  def ping(entity : E, p : P) = PingEvent(entity, p.payload.readByte)
+  def report(entity : E, p : P) = ReportEvent(entity, p.payload.readLong, p.payload.readByte)
+  def sessionRequest(entity : E, p : P) = SessionRequestEvent(entity, p.payload.readByte, p.payload.readString().trim)
+  def logout(entity : E, p : P) = LogoutEvent(entity)
+  def styleChange(entity : E, p : P) = StyleChangeEvent(entity, p.payload.readByte)
 
   /*
    * Inv
    */
-  def invUseOnPlayer(entity : E, p : P) = InvUseOnPlayerPacketEvent(entity, p.payload.readLong, p.payload.readShort)
-  def invUseOnItem(entity : E, p : P) = InvUseOnItemPacketEvent(entity, p.payload.readShort, p.payload.readShort)
-  def invUseOnGroundItem(entity : E, p : P) = InvUseOnGroundItemPacketEvent(entity, p.payload.readPoint, p.payload.readShort, p.payload.readShort)
-  def invUseItemOnDoor(entity : E, p : P) = InvUseOnDoorPacketEvent(entity, p.payload.readPoint, p.payload.readByte, p.payload.readShort)
+  def invUseOnPlayer(entity : E, p : P) = InvUseOnPlayerEvent(entity, p.payload.readLong, p.payload.readShort)
+  def invUseOnItem(entity : E, p : P) = InvUseOnItemEvent(entity, p.payload.readShort, p.payload.readShort)
+  def invUseOnGroundItem(entity : E, p : P) = InvUseOnGroundItemEvent(entity, p.payload.readPoint, p.payload.readShort, p.payload.readShort)
+  def invUseItemOnDoor(entity : E, p : P) = InvUseOnDoorEvent(entity, p.payload.readPoint, p.payload.readByte, p.payload.readShort)
 
   /*
    * Spells
    */
-  def castOnGameObject(entity : E, p : P) = CastOnGameObjectPacketEvent(entity, p.payload.readShort, p.payload.readPoint)
+  def castOnGameObject(entity : E, p : P) = CastOnGameObjectEvent(entity, p.payload.readShort, p.payload.readPoint)
 
   /*
    * Friend/Ignore
    */
-  def addIgnore(entity : E, p : P) = AddIgnorePacketEvent(entity, p.payload.readLong)
+  def addIgnore(entity : E, p : P) = AddIgnoreEvent(entity, p.payload.readLong)
 
   /*
    * Dueling
    */
-  def declineDuel(entity : E, p : P) = DeclineDuelPacketEvent(entity)
+  def declineDuel(entity : E, p : P) = DeclineDuelEvent(entity)
 
   /*
    * Object interation
    */
-  def secondaryObjectAction(entity : E, p : P) = SecondaryObjectAction(entity, p.payload.readPoint)
+  def secondaryObjectAction(entity : E, p : P) = SecondaryObjectActionEvent(entity, p.payload.readPoint)
+
+  /*
+   * Bank
+   */
+  def closeBank(entity : E, p : P) = CloseBankEvent(entity)
 
 }
