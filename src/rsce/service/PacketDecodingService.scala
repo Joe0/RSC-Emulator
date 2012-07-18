@@ -81,7 +81,7 @@ private object Functions {
   def declineDuel(entity : E, p : P) = DeclineDuelEvent(entity)
 
   /*
-   * Object interation
+   * Object interaction
    */
   def secondaryObjectAction(entity : E, p : P) = SecondaryObjectActionEvent(entity, p.payload.readPoint)
 
