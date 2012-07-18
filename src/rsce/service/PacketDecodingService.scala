@@ -29,13 +29,13 @@ object PacketDecodingService {
     m += 17 -> castOnGameObject _
     m += 25 -> addIgnore _
     m += 27 -> invUseOnItem _
-    m += 32 -> sessionRequest _
+    m += 32 -> requestSession _
     m += 34 -> invUseOnGroundItem _
     m += 35 -> declineDuel _
     m += 36 -> invUseItemOnDoor _
     m += 39 -> logout _
     m += 40 -> secondaryObjectAction _
-    m += 42 -> styleChange _
+    m += 42 -> changeStyle _
     m += 48 -> closeBank _
 
     m.toMap // Converts to an immutable map
@@ -54,9 +54,9 @@ private object Functions {
   def trap(entity : E, p : P) = TrapEvent(entity)
   def ping(entity : E, p : P) = PingEvent(entity, p.payload.readByte)
   def report(entity : E, p : P) = ReportEvent(entity, p.payload.readLong, p.payload.readByte)
-  def sessionRequest(entity : E, p : P) = SessionRequestEvent(entity, p.payload.readByte, p.payload.readString().trim)
+  def requestSession(entity : E, p : P) = RequestSessionEvent(entity, p.payload.readByte, p.payload.readString().trim)
   def logout(entity : E, p : P) = LogoutEvent(entity)
-  def styleChange(entity : E, p : P) = StyleChangeEvent(entity, p.payload.readByte)
+  def changeStyle(entity : E, p : P) = ChangeStyleEvent(entity, p.payload.readByte)
 
   /*
    * Inv
