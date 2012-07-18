@@ -49,7 +49,7 @@ private object Functions {
   def trap(entity : E with N, p : P) = TrapPacketEvent(entity)
   def ping(entity : E with N, p : P) = PingPacketEvent(entity, p.payload.readByte)
   def report(entity : E with N, p : P) = ReportPacketEvent(entity, p.payload.readLong, p.payload.readByte)
-  def sessionRequest(entity : E with N, p : P) = SessionRequestPacketEvent(entity, p.payload.readByte, p.payload.getString().trim)
+  def sessionRequest(entity : E with N, p : P) = SessionRequestPacketEvent(entity, p.payload.readByte, p.payload.readString().trim)
   def logout(entity : E with N, p : P) = LogoutPacketEvent(entity)
 
   /*
@@ -57,13 +57,13 @@ private object Functions {
    */
   def invUseOnPlayer(entity : E with N, p : P) = InvUseOnPlayerPacketEvent(entity, p.payload.readLong, p.payload.readShort)
   def invUseOnItem(entity : E with N, p : P) = InvUseOnItemPacketEvent(entity, p.payload.readShort, p.payload.readShort)
-  def invUseOnGroundItem(entity : E with N, p : P) = InvUseOnGroundItemPacketEvent(entity, p.payload.getPoint, p.payload.readShort, p.payload.readShort)
-  def invUseItemOnDoor(entity : E with N, p : P) = InvUseOnDoorPacketEvent(entity, p.payload.getPoint, p.payload.readByte, p.payload.readShort)
+  def invUseOnGroundItem(entity : E with N, p : P) = InvUseOnGroundItemPacketEvent(entity, p.payload.readPoint, p.payload.readShort, p.payload.readShort)
+  def invUseItemOnDoor(entity : E with N, p : P) = InvUseOnDoorPacketEvent(entity, p.payload.readPoint, p.payload.readByte, p.payload.readShort)
 
   /*
    * Spells
    */
-  def castOnGameObject(entity : E with N, p : P) = CastOnGameObjectPacketEvent(entity, p.payload.readShort, p.payload.getPoint)
+  def castOnGameObject(entity : E with N, p : P) = CastOnGameObjectPacketEvent(entity, p.payload.readShort, p.payload.readPoint)
 
   /*
    * Friend/Ignore
@@ -78,6 +78,6 @@ private object Functions {
   /*
    * Object interation
    */
-  def secondaryObjectAction(entity : E with N, p : P) = SecondaryObjectAction(entity, p.payload.getPoint)
+  def secondaryObjectAction(entity : E with N, p : P) = SecondaryObjectAction(entity, p.payload.readPoint)
 
 }

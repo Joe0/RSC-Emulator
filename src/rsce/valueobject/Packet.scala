@@ -15,14 +15,14 @@ class Payload(buf : ByteBuffer) {
   def readInt = buf.getInt
   def readLong = buf.getLong
 
-  def getString(length : Int = -1) = {
+  def readString(length : Int = -1) = {
     val remaining = buf.slice
     val data = new Array[Byte](if (length == -1) remaining.limit else length)
     remaining.get(data)
     new String(data)
   }
 
-  def getPoint = new Point(readShort, readShort)
+  def readPoint = new Point(readShort, readShort)
 
   def writeByte(b : Byte) : Payload = buf.put(b)
   def writeBytes(b : Array[Byte]) : Payload = buf.put(b)
