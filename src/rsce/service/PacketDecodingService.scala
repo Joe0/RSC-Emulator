@@ -34,6 +34,7 @@ object PacketDecodingService {
     m += 35 -> declineDuel _
     m += 36 -> invUseItemOnDoor _
     m += 39 -> logout _
+    m += 40 -> secondaryObjectAction _
 
     m.toMap // Converts to an immutable map
   }
@@ -73,5 +74,10 @@ private object Functions {
    * Dueling
    */
   def declineDuel(entity : E with N, p : P) = DeclineDuelPacketEvent(entity)
+
+  /*
+   * Object interation
+   */
+  def secondaryObjectAction(entity : E with N, p : P) = SecondaryObjectAction(entity, p.payload.getPoint)
 
 }
