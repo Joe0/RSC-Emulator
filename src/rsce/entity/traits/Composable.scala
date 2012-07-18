@@ -19,6 +19,7 @@ trait Composable {
   /**
     * Adds an attribute to the entity.
     */
+  @throws(classOf[DuplicateEntryException])
   def addAttribute[T](i : T) = {
     val prev = attributes.putIfAbsent(i.getClass, i)
     if (prev != null)
@@ -28,5 +29,6 @@ trait Composable {
   /**
     * Adds an attribute to the entity.
     */
+  @throws(classOf[DuplicateEntryException])
   def +=[T](i : T) = addAttribute(i)
 }

@@ -18,7 +18,7 @@ class PacketDecoder extends ReplayingDecoder[States](States.READ_LENGTH) {
     go(buf, state)
   }
 
-  @throws(classOf[Exception])
+  @throws(classOf[InvalidStateException])
   private def go(buf : ChannelBuffer, state : States) : Packet = {
     state match {
       case States.READ_LENGTH =>
