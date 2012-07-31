@@ -8,7 +8,10 @@ import rsce.service.PacketDecodingService
 import rsce.valueobject.Packet
 import javax.inject.Inject
 
-@Inject class PacketHandler(world : World, eventHandler : EventHandler) extends SimpleChannelUpstreamHandler {
+class PacketHandler extends SimpleChannelUpstreamHandler {
+
+  @Inject private var world : World = null
+  @Inject private var eventHandler : EventHandler = null
 
   @throws(classOf[Exception])
   override def messageReceived(ctx : ChannelHandlerContext, e : MessageEvent) {
