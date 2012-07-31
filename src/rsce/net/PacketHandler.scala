@@ -1,21 +1,19 @@
 package rsce.net
 
-import org.jboss.netty.channel.{SimpleChannelUpstreamHandler, MessageEvent, ChannelStateEvent, ChannelHandlerContext}
-
+import org.jboss.netty.channel.{ SimpleChannelUpstreamHandler, MessageEvent, ChannelStateEvent, ChannelHandlerContext }
 import rsce.core.event.EventHandler
 import rsce.entity.World
-import rsce.event.{EventDecodingFailed, ChannelConnectedEvent, ChannelClosedEvent}
+import rsce.event.{ EventDecodingFailed, ChannelConnectedEvent, ChannelClosedEvent }
 import rsce.service.PacketDecodingService
 import rsce.valueobject.Packet
+import javax.inject.Inject
 
-class PacketHandler extends SimpleChannelUpstreamHandler {
-
-  private lazy val eventHandler = World.injector.getInstance(classOf[EventHandler])
+@Inject class PacketHandler(world : World, eventHandler : EventHandler) extends SimpleChannelUpstreamHandler {
 
   @throws(classOf[Exception])
   override def messageReceived(ctx : ChannelHandlerContext, e : MessageEvent) {
     val packet = e.getMessage().asInstanceOf[Packet]
-    val entity = World.getNetworkedEntity(e.getChannel.getId)
+    val entity = world.getNetworkedEntity(e.getChannel.getId)
     PacketDecodingService.decode(entity, packet) match {
       case Some(event) => eventHandler.dispatch(event)
       case None        => eventHandler.dispatch(EventDecodingFailed(entity, packet))

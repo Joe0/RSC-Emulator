@@ -2,27 +2,26 @@ package rsce.event.listener
 
 import javax.inject.Inject
 import rsce.core.event.EventHandler
-import rsce.entity.{World, Player}
-import rsce.event.{ChannelConnectedEvent, ChannelClosedEvent}
+import rsce.entity.{ World, Player }
+import rsce.event.{ ChannelConnectedEvent, ChannelClosedEvent }
+import com.google.common.eventbus.Subscribe
 
-object NetworkEventListenerBootstrap {
-  val eh = World.injector.getInstance(classOf[EventHandler])
-  eh.registerListeners(new ChannelConnectedEventListener, new ChannelClosedEventListener)
+class NetworkEventListenerBootstrap(world : World) {
+  @Inject var eh : EventHandler = null
+  eh.registerListeners(new ChannelConnectedEventListener(world), new ChannelClosedEventListener(world))
 }
 
-class ChannelConnectedEventListener {
-  @Inject
-  def connect(event : ChannelConnectedEvent) {
+class ChannelConnectedEventListener(world : World) {
+  @Subscribe def connect(event : ChannelConnectedEvent) {
     // Assume player for now
-    val entity = World.injector.getInstance(classOf[Player])
+    @Inject var entity : Player = null
     entity.setChannel(event.channel)
-    World.addNetworkedEntity(entity)
+    world.addNetworkedEntity(entity)
   }
 }
 
-class ChannelClosedEventListener {
-  @Inject
-  def close(event : ChannelClosedEvent) {
-    World.removeNetworkedEntity(event.channel.getId)
+class ChannelClosedEventListener(world : World) {
+  @Subscribe def close(event : ChannelClosedEvent) {
+    world.removeNetworkedEntity(event.channel.getId)
   }
 }

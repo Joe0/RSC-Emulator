@@ -3,8 +3,6 @@ package rsce.core.io;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import com.google.common.eventbus.EventBus;
@@ -25,9 +23,7 @@ public class IOManager {
 
 	private final ScheduledExecutorService scheduler;
 
-	@Inject
-	public IOManager(@Named("IOManager bus") EventBus bus,
-			@Named("IOManager scheduler") ScheduledExecutorService scheduler) {
+	public IOManager(EventBus bus, ScheduledExecutorService scheduler) {
 		this.bus = bus;
 		this.scheduler = scheduler;
 	}

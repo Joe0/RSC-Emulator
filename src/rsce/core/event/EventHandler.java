@@ -3,8 +3,6 @@ package rsce.core.event;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import com.google.common.eventbus.EventBus;
@@ -25,9 +23,7 @@ public class EventHandler {
 
 	private final ScheduledExecutorService scheduler;
 
-	@Inject
-	public EventHandler(@Named("EventHandler bus") EventBus bus,
-			@Named("EventHandler scheduler") ScheduledExecutorService scheduler) {
+	public EventHandler(EventBus bus, ScheduledExecutorService scheduler) {
 		this.bus = bus;
 		this.scheduler = scheduler;
 	}
