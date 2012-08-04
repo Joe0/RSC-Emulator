@@ -2,8 +2,6 @@ package rsce.entity.traits
 
 import java.util.concurrent.ConcurrentHashMap
 
-import rsce.exception.DuplicateEntryException
-
 trait Composable {
   private val attributes = new ConcurrentHashMap[Class[_ <: Any], Any]
 
@@ -19,16 +17,14 @@ trait Composable {
   /**
     * Adds an attribute to the entity.
     */
-  @throws(classOf[DuplicateEntryException])
   def addAttribute[T](i : T) = {
     val prev = attributes.putIfAbsent(i.getClass, i)
     if (prev != null)
-      throw new DuplicateEntryException("Entry already exists with value of " + prev)
+      throw new IllegalArgumentException("Entry already exists with value of " + prev)
   }
 
   /**
     * Adds an attribute to the entity.
     */
-  @throws(classOf[DuplicateEntryException])
   def +=[T](i : T) = addAttribute(i)
 }

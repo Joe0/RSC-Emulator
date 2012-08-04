@@ -4,7 +4,6 @@ import org.jboss.netty.buffer.ChannelBuffer
 import org.jboss.netty.channel.{ChannelHandlerContext, Channel}
 import org.jboss.netty.handler.codec.replay.ReplayingDecoder
 
-import rsce.exception.InvalidStateException
 import rsce.valueobject.{Payload, Packet}
 
 class PacketDecoder extends ReplayingDecoder[States](States.READ_LENGTH) {
@@ -18,7 +17,6 @@ class PacketDecoder extends ReplayingDecoder[States](States.READ_LENGTH) {
     go(buf, state)
   }
 
-  @throws(classOf[InvalidStateException])
   private def go(buf : ChannelBuffer, state : States) : Packet = {
     state match {
       case States.READ_LENGTH =>
@@ -32,8 +30,6 @@ class PacketDecoder extends ReplayingDecoder[States](States.READ_LENGTH) {
       case States.READ_PAYLOAD =>
         val p = buf.readBytes(length - 1)
         return new Packet(opcode, length - 1, new Payload(p.toByteBuffer))
-      case _ =>
-        throw new InvalidStateException("Invalid state.")
     }
 
   }
