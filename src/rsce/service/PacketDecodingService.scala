@@ -16,7 +16,7 @@ object PacketDecodingService {
     }
   }
 
-  def createMapping = {
+  private def createMapping = {
     import Functions._
 
     val m = new scala.collection.mutable.HashMap[Int, (Entity with Networked, Packet) => Any]
@@ -37,6 +37,13 @@ object PacketDecodingService {
     m += 40 -> secondaryObjectAction _
     m += 42 -> changeStyle _
     m += 48 -> closeBank _
+    m += 49 -> castOnInvItem _
+    m += 51 -> primaryObjectAction _
+    m += 52 -> removeFriend _
+    m += 53 -> confirmTradeAccepted _
+    m += 55 -> castOnPlayer _
+    m += 56 -> activatePrayer _
+    m += 57 -> attackPlayer _
 
     m.toMap // Converts to an immutable map
   }
@@ -70,11 +77,14 @@ private object Functions {
    * Spells
    */
   def castOnGameObject(entity : E, p : P) = CastOnGameObjectEvent(entity, p.payload.readShort, p.payload.readPoint)
+  def castOnInvItem(entity : E, p : P) = CastOnInvItemEvent(entity, p.payload.readShort, p.payload.readShort)
+  def castOnPlayer(entity : E, p : P) = CastOnPlayerEvent(entity, p.payload.readShort, p.payload.readShort)
 
   /*
    * Friend/Ignore
    */
   def addIgnore(entity : E, p : P) = AddIgnoreEvent(entity, p.payload.readLong)
+  def removeFriend(entity : E, p : P) = RemoveFriendEvent(entity, p.payload.readLong)
 
   /*
    * Dueling
@@ -82,13 +92,29 @@ private object Functions {
   def declineDuel(entity : E, p : P) = DeclineDuelEvent(entity)
 
   /*
+   * Trading
+   */
+  def confirmTradeAccepted(entity : E, p : P) = ConfirmTradeAcceptedEvent(entity)
+
+  /*
    * Object interaction
    */
   def secondaryObjectAction(entity : E, p : P) = SecondaryObjectActionEvent(entity, p.payload.readPoint)
+  def primaryObjectAction(entity : E, p : P) = PrimaryObjectActionEvent(entity, p.payload.readPoint)
 
   /*
    * Bank
    */
   def closeBank(entity : E, p : P) = CloseBankEvent(entity)
+
+  /*
+   * Prayer
+   */
+  def activatePrayer(entity : E, p : P) = ActivatePrayerEvent(entity, p.payload.readByte)
+
+  /*
+   * Attack
+   */
+  def attackPlayer(entity : E, p : P) = AttackPlayer(entity, p.payload.readShort)
 
 }
