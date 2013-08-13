@@ -1,7 +1,6 @@
 package rsce
 
 import com.google.inject.Guice
-import rsce.config.module.RSCEModule
 import rsce.config.bootstrap.Bootstraps
 
 object RSCE {

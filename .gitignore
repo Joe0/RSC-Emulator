@@ -11,11 +11,10 @@ update.log
 lib/
 doc/
 lib_managed/
-scala-2.7.7/
-scala_2.7.7/
+scala-2.10.2/
+scala_2.10.2/
 target/
 bin/
 build/
 out/
 classes/
-

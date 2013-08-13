@@ -1,0 +1,106 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.joepritzel</groupId>
+	<artifactId>RSCE</artifactId>
+	<version>0.1</version>
+	<packaging>jar</packaging>
+
+	<name>RSC-Emulator</name>
+	<description>This is an emulator for RSC (an old MMO).</description>
+	<url>https://github.com/Joe0/RSC-Emulator</url>
+
+	<licenses>
+		<license>
+			<name>MIT</name>
+			<url>https://github.com/Joe0/RSC-Emulator/blob/master/LICENSE</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Joe Pritzel</name>
+			<email>joe.pritzel0@gmail.com</email>
+			<timezone>-6</timezone>
+		</developer>
+	</developers>
+
+	<properties>
+		<junit.version>4.11</junit.version>
+		<scala.version>2.10.2</scala.version>
+		<jdk.version>1.7</jdk.version>
+	</properties>
+
+	<issueManagement>
+		<url>https://github.com/Joe0/RSC-Emulator/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+
+	<scm>
+		<url>https://github.com/Joe0/RSC-Emulator</url>
+		<connection>scm:git:git://github.com/Joe0/RSC-Emulator.git</connection>
+		<developerConnection>scm:git:git@github.com:Joe0/RSC-Emulator.git</developerConnection>
+	</scm>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.joepritzel</groupId>
+			<artifactId>feather</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty</artifactId>
+			<version>3.6.6.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>${scala.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src/main/scala</sourceDirectory>
+		<testSourceDirectory>src/test/scala</testSourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>scala-maven-plugin</artifactId>
+				<version>3.1.5</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<args>
+						<arg>-feature</arg>
+					</args>
+					<scalaVersion>${scala.version}</scalaVersion>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
